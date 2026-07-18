@@ -1,2 +1,38 @@
-Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
-Type "help", "copyright", "credits" or "license()" for more information.
+import json
+import boto3
+import os
+from boto3.dynamodb.conditions import Key
+
+dynamodb = boto3.resource("dynamodb")
+table = dynamodb.Table(os.environ["TABLE_NAME"])
+
+
+def lambda_handler(event, context):
+
+    try:
+
+        # Temporary until Cognito integration
+        user_id = "demo-user"
+
+        response = table.query(
+            KeyConditionExpression=Key("UserID").eq(user_id)
+        )
+
+        files = response.get("Items", [])
+
+        return {
+            "statusCode": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": json.dumps(files)
+        }
+
+    except Exception as e:
+
+        return {
+            "statusCode": 500,
+            "body": json.dumps({
+                "message": str(e)
+            })
+        }
