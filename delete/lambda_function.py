@@ -2,11 +2,11 @@ import json
 import boto3
 import os
 
-s3 = boto3.client("s3")
 dynamodb = boto3.resource("dynamodb")
+s3 = boto3.client("s3")
 
-BUCKET_NAME = os.environ["BUCKET_NAME"]
 TABLE_NAME = os.environ["TABLE_NAME"]
+BUCKET_NAME = os.environ["BUCKET_NAME"]
 
 table = dynamodb.Table(TABLE_NAME)
 
@@ -15,19 +15,38 @@ def lambda_handler(event, context):
 
     try:
 
+        # Get authenticated user
+        claims = event["requestContext"]["authorizer"]["jwt"]["claims"]
+        user_id = claims["sub"]
+
         body = json.loads(event["body"])
-
-        user_id = body["userId"]
         file_id = body["fileId"]
-        file_key = body["fileKey"]
 
-        # Delete from S3
+        # Fetch metadata
+        response = table.get_item(
+            Key={
+                "UserID": user_id,
+                "FileID": file_id
+            }
+        )
+
+        if "Item" not in response:
+            return {
+                "statusCode": 404,
+                "body": json.dumps({
+                    "message": "File not found"
+                })
+            }
+
+        file_key = response["Item"]["FileKey"]
+
+        # Delete file from S3
         s3.delete_object(
             Bucket=BUCKET_NAME,
             Key=file_key
         )
 
-        # Delete metadata
+        # Delete metadata from DynamoDB
         table.delete_item(
             Key={
                 "UserID": user_id,

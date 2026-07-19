@@ -4,32 +4,31 @@ import os
 from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.resource("dynamodb")
-table = dynamodb.Table(os.environ["TABLE_NAME"])
+
+TABLE_NAME = os.environ["TABLE_NAME"]
+table = dynamodb.Table(TABLE_NAME)
 
 
 def lambda_handler(event, context):
 
     try:
-
-        # Temporary until Cognito integration
-        user_id = "demo-user"
+        # Get authenticated user's ID from Cognito JWT
+        claims = event["requestContext"]["authorizer"]["jwt"]["claims"]
+        user_id = claims["sub"]
 
         response = table.query(
             KeyConditionExpression=Key("UserID").eq(user_id)
         )
-
-        files = response.get("Items", [])
 
         return {
             "statusCode": 200,
             "headers": {
                 "Content-Type": "application/json"
             },
-            "body": json.dumps(files)
+            "body": json.dumps(response["Items"])
         }
 
     except Exception as e:
-
         return {
             "statusCode": 500,
             "body": json.dumps({
