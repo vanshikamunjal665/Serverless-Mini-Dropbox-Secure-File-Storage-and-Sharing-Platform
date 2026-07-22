@@ -2,7 +2,7 @@
 
 A Dropbox-like cloud file storage and sharing web app built entirely on **serverless AWS infrastructure**, with a **Streamlit** frontend. Users can register/login, upload files directly to S3 via pre-signed URLs, view their files, download them, delete them, and generate temporary shareable links — with zero servers to manage on the backend, and zero hosting cost for the frontend.
 
-**🔗 Live App:** `https://<your-app-name>.streamlit.app`
+**🔗 Live App:** `https://serverless-mini-dropbox-file-storage-and-sharing-platform.streamlit.app/`
 
 ---
 
