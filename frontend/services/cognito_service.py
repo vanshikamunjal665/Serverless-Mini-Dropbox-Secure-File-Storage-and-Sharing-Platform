@@ -10,7 +10,19 @@ from botocore.exceptions import ClientError
 
 from core.config import AWS_REGION, APP_CLIENT_ID, APP_CLIENT_SECRET
 
-_client = boto3.client("cognito-idp", region_name=AWS_REGION)
+import streamlit as st
+
+def _get_cognito_client():
+    if "AWS_ACCESS_KEY_ID" in st.secrets:
+        return boto3.client(
+            "cognito-idp",
+            region_name=AWS_REGION,
+            aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"],
+            aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
+        )
+    return boto3.client("cognito-idp", region_name=AWS_REGION)
+
+_client = _get_cognito_client()
 
 
 def _secret_hash(username: str) -> str:
