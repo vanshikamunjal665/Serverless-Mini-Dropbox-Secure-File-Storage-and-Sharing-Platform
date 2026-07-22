@@ -35,37 +35,37 @@ A Dropbox-like cloud file storage and sharing web app built entirely on **server
 
 ```
 ┌─────────────┐        HTTPS         ┌──────────────────┐
-│  Streamlit  │ ───────────────────► │  Amazon Cognito   │  (Sign up / Login)
-│  Frontend   │ ◄─────────────────── │  (User Pool)      │
-│ (Streamlit  │      JWT Tokens       └──────────────────┘
+│  Streamlit  │ ───────────────────► │  Amazon Cognito  │  (Sign up / Login)
+│  Frontend   │ ◄─────────────────── │  (User Pool)     │
+│ (Streamlit  │      JWT Tokens      └──────────────────┘
 │  Cloud)     │
 └──────┬──────┘
        │
        │  Bearer <AccessToken>
        ▼
 ┌─────────────────────┐
-│ Amazon API Gateway    │  (HTTP API, Cognito JWT Authorizer)
-│  /upload  /files        │
-│  /download /file          │
-│  /share                    │
-└──────────┬──────────────┘
+│ Amazon API Gateway  │  (HTTP API, Cognito JWT Authorizer)
+│  /upload  /files    │
+│  /download /file    │
+│  /share             │
+└──────────┬──────────┘
            │ invokes
            ▼
-┌─────────────────────┐        ┌───────────────────┐
-│   AWS Lambda           │ ─────► │  Amazon DynamoDB     │  (File metadata)
-│  (5 request functions)  │        └───────────────────┘
-│                           │ ─────► ┌───────────────────┐
-└────────┬──────────────────┘        │   Amazon S3           │  (File storage)
-         │                            └────────┬──────────┘
-         │ triggered on ObjectCreated           │
-         ▼                                      │
-┌─────────────────────┐                         │
-│ store-file-metadata    │ ◄───────────────────────┘
-│  Lambda (S3 trigger)     │
-│  writes metadata to      │
-│  DynamoDB including       │
-│  file size                 │
-└─────────────────────┘
+┌────────────────────────┐        ┌───────────────────┐
+│   AWS Lambda           │ ─────► │  Amazon DynamoDB  │  (File metadata)
+│  (5 request functions) │        └───────────────────┘
+│                        │ ─────► ┌───────────────────┐
+└────────┬───────────────┘        │   Amazon S3       │  (File storage)
+         │                        └────────┬──────────┘
+         │ triggered on ObjectCreated      │
+         ▼                                 │
+┌────────────────────────┐                 │
+│ store-file-metadata    │ ◄───────────────┘
+│  Lambda (S3 trigger)   │
+│  writes metadata to    │
+│  DynamoDB including    │
+│  file size             │
+└────────────────────────┘
 ```
 
 **Flow summary:**
