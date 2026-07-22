@@ -19,15 +19,13 @@ def lambda_handler(event, context):
 
             bucket = record["s3"]["bucket"]["name"]
             object_key = unquote_plus(record["s3"]["object"]["key"])
+            file_size = record["s3"]["object"]["size"]          # <-- NEW
 
-            # uploads/<user_id>/<uuid>_filename
             parts = object_key.split("/")
-
             user_id = parts[1]
             file_name = parts[-1]
 
             file_id = str(uuid.uuid4())
-
             upload_time = datetime.utcnow().isoformat()
 
             table.put_item(
@@ -37,22 +35,18 @@ def lambda_handler(event, context):
                     "Bucket": bucket,
                     "FileName": file_name,
                     "FileKey": object_key,
-                    "UploadTime": upload_time
+                    "UploadTime": upload_time,
+                    "FileSize": file_size                        # <-- NEW
                 }
             )
 
         return {
             "statusCode": 200,
-            "body": json.dumps({
-                "message": "Metadata stored successfully"
-            })
+            "body": json.dumps({"message": "Metadata stored successfully"})
         }
 
     except Exception as e:
-
         return {
             "statusCode": 500,
-            "body": json.dumps({
-                "message": str(e)
-            })
+            "body": json.dumps({"message": str(e)})
         }

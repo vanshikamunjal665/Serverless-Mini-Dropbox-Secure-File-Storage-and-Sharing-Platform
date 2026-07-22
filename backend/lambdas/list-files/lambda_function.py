@@ -1,6 +1,7 @@
 import json
 import boto3
 import os
+from decimal import Decimal
 from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.resource("dynamodb")
@@ -9,10 +10,19 @@ TABLE_NAME = os.environ["TABLE_NAME"]
 table = dynamodb.Table(TABLE_NAME)
 
 
+class DecimalEncoder(json.JSONEncoder):
+    """Converts DynamoDB's Decimal type into int/float so json.dumps works."""
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            if obj % 1 == 0:
+                return int(obj)
+            return float(obj)
+        return super().default(obj)
+
+
 def lambda_handler(event, context):
 
     try:
-        # Get authenticated user's ID from Cognito JWT
         claims = event["requestContext"]["authorizer"]["jwt"]["claims"]
         user_id = claims["sub"]
 
@@ -25,7 +35,7 @@ def lambda_handler(event, context):
             "headers": {
                 "Content-Type": "application/json"
             },
-            "body": json.dumps(response["Items"])
+            "body": json.dumps(response["Items"], cls=DecimalEncoder)   # <-- only change
         }
 
     except Exception as e:

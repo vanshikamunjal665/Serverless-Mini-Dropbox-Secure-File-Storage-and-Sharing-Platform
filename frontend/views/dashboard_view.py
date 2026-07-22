@@ -1,5 +1,6 @@
 import streamlit as st
 from datetime import datetime
+from core.formatters import format_bytes
 
 from services import storage_service
 from core.session import get_username, end_session, mark_file_shared, shared_count
@@ -47,12 +48,13 @@ def _header():
 
 
 def _metrics(files):
+    total_size = sum(item.get("FileSize", 0) for item in files)
+
     col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("Total Files", len(files))
     with col2:
-        st.metric("Storage Used", "N/A")
-        st.caption("File size isn't tracked by the backend yet")
+        st.metric("Storage Used", format_bytes(total_size))
     with col3:
         st.metric("Shared This Session", shared_count())
 
