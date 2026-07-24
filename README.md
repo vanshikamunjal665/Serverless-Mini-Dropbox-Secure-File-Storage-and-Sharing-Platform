@@ -96,18 +96,18 @@ A Dropbox-like cloud file storage and sharing web app built entirely on **server
 
 ## ☁️ AWS Services Used
 
-- **Amazon Cognito** — User Pool for authentication; issues JWT Access/ID/Refresh tokens.
-- **AWS Lambda** — Six functions total:
-  - `generate-upload-url` — creates a pre-signed S3 PUT URL
-  - `list-files` — queries DynamoDB for the logged-in user's files
-  - `download-file` — creates a pre-signed S3 GET URL
-  - `delete-file` — deletes the S3 object + DynamoDB record
-  - `share-file` — creates a time-limited pre-signed share URL
-  - `store-file-metadata` — S3 event-triggered function that writes metadata (including file size) after upload
-- **Amazon API Gateway (HTTP API)** — Routes requests to Lambda, secured with a Cognito JWT Authorizer.
-- **Amazon S3** — Stores raw file objects under `uploads/<user_id>/<uuid>_<filename>`; CORS configured to allow `PUT`/`GET` from the deployed frontend origin.
-- **Amazon DynamoDB** — Table keyed on `UserID` (partition key) + `FileID` (sort key), storing file metadata including `FileSize`.
-- **IAM** — Scoped Lambda execution roles, plus a dedicated deploy-time IAM user restricted to `cognito-idp:InitiateAuth`, `SignUp`, `ConfirmSignUp` only.
+- **Amazon Cognito** - User Pool for authentication; issues JWT Access/ID/Refresh tokens.
+- **AWS Lambda** - Six functions total:
+  - `generate-upload-url` - creates a pre-signed S3 PUT URL
+  - `list-files` - queries DynamoDB for the logged-in user's files
+  - `download-file` - creates a pre-signed S3 GET URL
+  - `delete-file` - deletes the S3 object + DynamoDB record
+  - `share-file` - creates a time-limited pre-signed share URL
+  - `store-file-metadata` - S3 event-triggered function that writes metadata (including file size) after upload
+- **Amazon API Gateway (HTTP API)** - Routes requests to Lambda, secured with a Cognito JWT Authorizer.
+- **Amazon S3** - Stores raw file objects under `uploads/<user_id>/<uuid>_<filename>`; CORS configured to allow `PUT`/`GET` from the deployed frontend origin.
+- **Amazon DynamoDB** - Table keyed on `UserID` (partition key) + `FileID` (sort key), storing file metadata including `FileSize`.
+- **IAM** - Scoped Lambda execution roles, plus a dedicated deploy-time IAM user restricted to `cognito-idp:InitiateAuth`, `SignUp`, `ConfirmSignUp` only.
 
 **CloudFront was deliberately not used** — API Gateway and S3 pre-signed URLs already serve over HTTPS, and Streamlit Cloud provides HTTPS for the frontend. CloudFront would add cost and complexity (custom domain, CDN caching, WAF) with no benefit at this project's scale.
 
