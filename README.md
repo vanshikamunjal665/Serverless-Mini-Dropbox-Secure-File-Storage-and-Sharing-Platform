@@ -18,15 +18,15 @@ A Dropbox-like cloud file storage and sharing web app built entirely on **server
 
 ## 🚀 Features
 
-- 🔐 **Authentication** — Sign up, email verification, and login via Amazon Cognito (JWT-based)
-- 📤 **Upload** — Direct-to-S3 upload using pre-signed URLs (files never pass through a server)
-- 📄 **List Files** — Per-user file listing pulled from DynamoDB
-- ⬇️ **Download** — Secure, time-limited pre-signed download links
-- 🔗 **Share** — Generate temporary shareable links with configurable expiry
-- 🗑️ **Delete** — Removes both the S3 object and its DynamoDB metadata
-- 📊 **Dashboard metrics** — Total files, real storage used, and files shared this session
-- ⏳ **Post-upload sync** — Frontend polls briefly after upload so newly uploaded files appear without needing a manual refresh/logout
-- 🧩 **Fully serverless backend** — No EC2, no containers, pay only per request
+- 🔐 **Authentication** - Sign up, email verification, and login via Amazon Cognito (JWT-based)
+- 📤 **Upload** - Direct-to-S3 upload using pre-signed URLs (files never pass through a server)
+- 📄 **List Files** - Per-user file listing pulled from DynamoDB
+- ⬇️ **Download** - Secure, time-limited pre-signed download links
+- 🔗 **Share** - Generate temporary shareable links with configurable expiry
+- 🗑️ **Delete** - Removes both the S3 object and its DynamoDB metadata
+- 📊 **Dashboard metrics** - Total files, real storage used, and files shared this session
+- ⏳ **Post-upload sync** - Frontend polls briefly after upload so newly uploaded files appear without needing a manual refresh/logout
+- 🧩 **Fully serverless backend** - No EC2, no containers, pay only per request
 - ☁️ **Zero-cost, always-on frontend hosting** via Streamlit Community Cloud
 
 ---
