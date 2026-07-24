@@ -10,9 +10,9 @@ A Dropbox-like cloud file storage and sharing web app built entirely on **server
 
 | Login | Dashboard |
 |---|---|
-| ![Login Page](screenshots/login.png) | ![Dashboard](screenshots/dashboard.png) |
-
-> Replace the images above (and throughout this README) by adding your own screenshots to a `screenshots/` folder in the repo root. Full list in the [Screenshots](#-screenshots) section.
+| ![Login Page](screenshots/login.png) | ![Dashboard](screenshots/dashboard1.png) |
+| ![Login Page](screenshots/signup.png)| ![Dashboard](screenshots/dashboard2.png) |
+| ![Login Page](screenshots/confirm.png)|
 
 ---
 
@@ -196,8 +196,6 @@ The Streamlit frontend is a long-running process and needs somewhere to stay ali
 ---
 
 ## 📸 Screenshots
-
-Create a `screenshots/` folder in the repo root and add the following (referenced throughout this README):
 
 | File name | What to capture |
 |---|---|
