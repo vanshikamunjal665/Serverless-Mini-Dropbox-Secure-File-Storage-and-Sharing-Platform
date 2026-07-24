@@ -197,21 +197,22 @@ The Streamlit frontend is a long-running process and needs somewhere to stay ali
 
 ## 📸 Screenshots
 
-| File name | What to capture |
-|---|---|
-| `login.png` | Login page |
-| `signup.png` | Sign up tab |
-| `confirm.png` | Confirm account tab |
-| `dashboard.png` | Full dashboard after login |
-| `upload.png` | Upload in progress / success message |
-| `file-list.png` | "My Files" section with uploaded files |
-| `download.png` | Download link generated |
-| `share.png` | Share link generated |
-| `cognito-pool.png` | Cognito User Pool console |
-| `dynamodb-table.png` | DynamoDB table items (showing `FileSize` populated) |
-| `lambda-functions.png` | List of deployed Lambda functions |
-| `api-gateway-routes.png` | API Gateway routes configuration |
-| `deployed-app.png` | Live deployed Streamlit app |
+| Screenshot | Description |
+|------------|-------------|
+| [Login Page](screenshots/login.png) | Login page |
+| [Sign Up](screenshots/signup.png) | Sign up tab |
+| [Confirm Account](screenshots/confirm.png) | Confirm account tab |
+| [Dashboard](screenshots/dashboard1.png) | Full dashboard after login |
+| [Dashboard](screenshots/dashboard2.png) | Full dashboard after login |
+| [Upload](screenshots/upload.png) | Upload in progress / success message |
+| [My Files](screenshots/file-list.png) | "My Files" section with uploaded files |
+| [Download Link](screenshots/download.png) | Download link generated |
+| [Share Link](screenshots/share.png) | Share link generated |
+| [Cognito User Pool](screenshots/cognito-pool.png) | Cognito User Pool console |
+| [DynamoDB Table](screenshots/dynamodb-table.png) | DynamoDB table items showing `FileSize` |
+| [Lambda Functions](screenshots/lambda-functions.png) | List of deployed Lambda functions |
+| [API Gateway Routes](screenshots/api-gateway.png) | API Gateway routes configuration |
+| [Live Streamlit App](screenshots/deployed-app.png) | Live deployed Streamlit app |
 
 ---
 
