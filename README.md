@@ -211,7 +211,7 @@ The Streamlit frontend is a long-running process and needs somewhere to stay ali
 | [Cognito User Pool](screenshots/cognito-pool.png) | Cognito User Pool console |
 | [DynamoDB Table](screenshots/dynamodb-table.png) | DynamoDB table items showing `FileSize` |
 | [Lambda Functions](screenshots/lambda-functions.png) | List of deployed Lambda functions |
-| [API Gateway Routes](screenshots/api-gateway.png) | API Gateway routes configuration |
+| [API Gateway](screenshots/api-gateway.png) | API Gateway configuration |
 | [Live Streamlit App](screenshots/deployed-app.png) | Live deployed Streamlit app |
 
 ---
@@ -230,9 +230,5 @@ The Streamlit frontend is a long-running process and needs somewhere to stay ali
 
 ## 👤 Author
 
-**Your Name**
+**Vanshika Munjal**
 Built as a personal/academic project to demonstrate a fully serverless AWS architecture with a Python frontend.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
